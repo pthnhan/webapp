@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Card Score {% endblock %}
+
+{% block content %}
+    <p><b>There are {{no_players}} players in the created game!<br>Please enter their names and their starting scores!</b></p>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <p style="color: red">{{m}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    <!-- <br>
+    <p>
+        <div class="questions-list">
+            {% for p in players %}
+                <div>
+                    <p><b>{{ p.id }}. {{ p.name }}: {{p.score}}</b></p>
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <p style="color: red">{{m}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="#" method="post">
+            <label for="">Player {{players |length + 1}}</label>
+            <input type="name" name="name" placeholder="Enter player {{i}}"></input>
+            <input type="number" name="score" placeholder="Enter starting score"></input>
+            <button style="background-color: yellowgreen; color: white; " type="submit">Add</button>
+        </form>
+    </p>
+    <p>
+        <a href="{{ url_for('card_score.reset') }}">Reset</a>
+    </p> -->
+    <div class="players_form">
+        <form action="#" method="post">
+            {% for i in range(no_players) %}
+                <br>
+                <label for="">Player {{i+1}}</label>
+                <input type="name" name="name{{i}}" placeholder="Enter player {{i + 1}}" value="{{players['name'][i] if players}}"></input>
+                <input type="number" name="score{{i}}" placeholder="Enter starting score" value="{{players['score'][i] if players}}"></input>
+            {% endfor %}
+            <br>
+            <button style="background-color: yellowgreen; color: white; " type="submit">Create</button>
+            <button type="reset" value="Reset">Clear all</button>
+        </form>
+    </div>
+{% endblock %}
