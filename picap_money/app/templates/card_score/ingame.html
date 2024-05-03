@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %} Card Score {% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for m in messages %}
+                <p style="color: red">{{m}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <button style="margin: 10px; " id="hidden_score">Hide score</button>
+    <table border="1" class="table_card">
+        <tr>
+            <th id="round"></th>
+            {% for i in range(players |length)%}
+                <th>{{players[i][0]}}</th>
+            {% endfor %}
+        </tr>
+        <tr id="score">
+            <th>Score</th>
+            {% for i in range(players |length)%}
+                <th>{{players[i][1]}}</th>
+            {% endfor %}
+        </tr>
+        {% block new_round %} {% endblock %}
+        <form action="#" method="post">
+            <tr>
+                <th>{{round}}</th>
+                {% for i in range(players |length)%}
+                    <th><input type="number" name="score{{i}}" style="width: 50px; "></input></th>
+                {% endfor %}
+            </tr>
+            <br>
+            <button style="background-color: yellowgreen; color: white; margin: 10px;" type="submit">Add</button>
+        </form>
+    </table>
+    <script>
+        document.getElementById("hidden_score").addEventListener(
+        "click",
+        () => {
+            // document.getElementById("score").hidden = true;
+            if (document.getElementById("score").hidden) {
+                document.getElementById("score").hidden = false;
+                document.getElementById("hidden_score").innerHTML = "Hide score";
+                document.getElementById("round").innerHTML = ""; 
+            }
+            else {
+                document.getElementById("score").hidden = true;
+                document.getElementById("hidden_score").innerHTML = "Show score";
+                document.getElementById("round").innerHTML = "Round";
+            }
+        },
+        false
+        );
+    </script>
+{% endblock %}

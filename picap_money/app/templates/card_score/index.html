@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %} Card Score {% endblock %}
+
+{% block content %}
+    <div class="new-game">
+        <form method="POST">
+            <input type="text" name="no_players" placeholder="Enter number of players"></input>
+            <button style="background-color: yellowgreen; color: white;" type="submit">Enter</button>
+        </form>
+    </div>
+{% endblock %}
